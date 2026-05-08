@@ -81,32 +81,34 @@ export default function NotificationBell() {
   };
 
   return (
-    <div className="notif-bell-wrapper" ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <button
-        className="notif-bell-btn"
+        className="w-[42px] h-[42px] rounded-xl bg-white border border-slate-200 text-slate-500 flex items-center justify-center cursor-pointer relative transition-all hover:bg-slate-50 hover:text-blue-700"
         onClick={() => { setOpen(o => !o); if (!open) fetchNotifications(); }}
         title="Notifications"
       >
         <Bell size={20} />
         {unreadCount > 0 && (
-          <span className="notif-bell-badge">{unreadCount > 9 ? '9+' : unreadCount}</span>
+          <span className="absolute top-1.5 right-1.5 min-w-[16px] h-[16px] px-1 bg-red-500 rounded-full border-[1.5px] border-white text-white text-[9px] font-extrabold flex items-center justify-center">
+            {unreadCount > 9 ? '9+' : unreadCount}
+          </span>
         )}
       </button>
 
       {open && (
-        <div className="notif-dropdown">
-          <div className="notif-dropdown-header">
-            <h3 style={{ fontWeight: 700, fontSize: '0.95rem' }}>Notifications</h3>
-            <button onClick={() => setOpen(false)} className="notif-close-btn">
+        <div className="absolute top-[calc(100%+8px)] right-0 w-[340px] bg-white rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.12)] border border-slate-100 z-[100] overflow-hidden">
+          <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+            <h3 className="font-bold text-[0.95rem] text-slate-900">Notifications</h3>
+            <button onClick={() => setOpen(false)} className="bg-transparent border-none text-slate-400 cursor-pointer p-1 hover:text-slate-700">
               <X size={16} />
             </button>
           </div>
 
-          <div className="notif-dropdown-body">
+          <div className="max-h-[380px] overflow-y-auto">
             {loading && notifications.length === 0 ? (
-              <div className="notif-empty">Loading…</div>
+              <div className="p-8 flex flex-col items-center justify-center gap-2 text-slate-400 text-sm font-medium">Loading…</div>
             ) : notifications.length === 0 ? (
-              <div className="notif-empty">
+              <div className="p-8 flex flex-col items-center justify-center gap-2 text-slate-400 text-sm font-medium">
                 <Bell size={32} color="#D1D5DB" />
                 <p>No notifications yet</p>
               </div>
@@ -117,18 +119,18 @@ export default function NotificationBell() {
                 return (
                   <div
                     key={n._id}
-                    className={`notif-item ${n.isRead ? '' : 'unread'}`}
+                    className={`flex items-start gap-3 p-4 border-b border-slate-50 cursor-pointer transition-colors hover:bg-slate-50 ${n.isRead ? '' : 'bg-blue-50/30'}`}
                     onClick={() => !n.isRead && markAsRead(n._id)}
                   >
-                    <div className="notif-item-icon" style={{ background: cfg.bg }}>
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: cfg.bg }}>
                       <Icon size={16} style={{ color: cfg.color }} />
                     </div>
-                    <div className="notif-item-content">
-                      <p className="notif-item-msg">{n.message}</p>
-                      <span className="notif-item-time">{timeAgo(n.createdAt)}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] text-slate-700 leading-snug mb-1">{n.message}</p>
+                      <span className="text-[11px] font-semibold text-slate-400">{timeAgo(n.createdAt)}</span>
                     </div>
                     {!n.isRead && (
-                      <div className="notif-unread-dot" />
+                      <div className="w-2 h-2 rounded-full bg-blue-600 mt-1" />
                     )}
                   </div>
                 );
