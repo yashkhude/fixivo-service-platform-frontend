@@ -97,11 +97,23 @@ export default function EmergencyService() {
     setLocating(true);
     setFormError('');
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setLocation({
-          coordinates: [pos.coords.longitude, pos.coords.latitude]
-        });
-        setLocating(false);
+       async (pos) => {
+        try {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const response = await fetch(
+             `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+          );
+          const data = await response.json();
+          setLocation({
+            coordinates: [lng,lat],
+            address: data.display_name
+          })
+        } catch (error) {
+            setError("Failed to fetch address");
+        } finally {
+           setLocating(false);
+        }
       },
       (err) => {
         setFormError('Unable to get your location. Please allow location access.');
@@ -191,7 +203,7 @@ export default function EmergencyService() {
             {location ? (
               <div className="flex items-center gap-2 p-3 bg-green-50 border border-green-100 rounded-xl">
                 <MapPin size={16} className="text-green-600" />
-                <span className="text-sm text-green-700 font-medium">Location captured</span>
+                <span className="text-sm text-green-700 font-medium">{location.address || "Location captured"}</span>
                 <button
                   type="button"
                   onClick={() => setLocation(null)}
