@@ -9,7 +9,7 @@ import { useToast, ToastContainer } from '../../components/Toast';
 
 const ILLUSTRATION = 'https://images.unsplash.com/photo-1587813723351-a43ed2cae4d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=900';
 
-const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL;
+const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL || 'https://fixivo-service-platform-backend.onrender.com';
 
 // API helper functions
 const registerCustomerAPI = async (data) => {

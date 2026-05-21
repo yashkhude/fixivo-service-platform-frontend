@@ -5,7 +5,7 @@ import {
   Clock, Phone, User, Eye, RefreshCcw, ChevronRight, Wrench
 } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL;
+const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL || 'https://fixivo-service-platform-backend.onrender.com';
 
 const SERVICE_TYPES = [
   'Plumber', 'Electrician', 'AC Technician', 'Home Cleaner',

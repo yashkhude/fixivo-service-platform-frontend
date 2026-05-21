@@ -11,7 +11,7 @@ import { logout } from '../../app/slices/authSlice';
 import NotificationBell from '../../components/NotificationBell';
 import EmergencyRequests from '../Tabs/EmergencyRequests';
 
-const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL;
+const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL || 'https://fixivo-service-platform-backend.onrender.com';
 
 const STATUS_CONFIG = {
   pending:   { label: 'Pending',   color: '#F59E0B', bg: '#FFFBEB', icon: Clock },

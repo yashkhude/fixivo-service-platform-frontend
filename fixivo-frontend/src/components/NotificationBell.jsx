@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { Bell, X, Check, AlertTriangle, MessageSquare, Star, FileText } from 'lucide-react';
 
-const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL;
+const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL || 'https://fixivo-service-platform-backend.onrender.com';
 
 const TYPE_CONFIG = {
   emergency: { icon: AlertTriangle, color: '#DC2626', bg: '#FEF2F2', label: 'Emergency' },
