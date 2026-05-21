@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AlertCircle, CheckCircle2, Wrench, Loader } from 'lucide-react';
 import { setAuth } from '../app/slices/authSlice';
 
-const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = import.meta.env.VITE_FIXIVO_APP_API_URL || 'https://fixivo-service-platform-backend.onrender.com';
 
 export default function CompleteProfile() {
   const { user, provider, accessToken } = useSelector(s => s.auth);
